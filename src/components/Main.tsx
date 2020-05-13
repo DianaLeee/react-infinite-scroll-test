@@ -59,6 +59,7 @@ const Main = () => {
         const fetchedData = response.data.data;
         const mergedData = instaData.concat(...fetchedData);
         setInstaData(mergedData);
+        setInstaPaging(response.data.paging);
       });
     }
     setFetching(false);
