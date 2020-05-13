@@ -1,6 +1,9 @@
 import React from "react";
 
-const HeartSVG = (props: any) => {
+interface IHeartSVGProps {
+  fill: boolean;
+}
+const HeartSVG = (props: IHeartSVGProps) => {
   return props.fill ? (
     <svg aria-label="좋아요 취소" fill="#ed4956" height="24" viewBox="0 0 48 48" width="24">
       <path
