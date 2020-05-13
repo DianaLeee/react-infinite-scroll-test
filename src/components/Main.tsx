@@ -4,8 +4,13 @@ import styled from "styled-components";
 import Feed from "./Feed";
 import { IFeedData } from "../constants/interface";
 
+interface IPagingData {
+  next: string | undefined;
+}
+
 const baseUrl = "https://graph.instagram.com/me/media";
-const token = "USE_YOUR_OWN_TOKEN";
+const token =
+  "IGQVJXVm9aZAmFZAa2lwSFh5Uy1GRE9tVmVTcXN3RWpPOFNGaWdJaUxLS3g5WkNjSndKdDJBY1IxelRzMTRuYVB5djZAfS0FmNWFDTFFvQ2llbHN3Uk01VklodXFFNGo5N2IxdTNGcFF3";
 
 const FeedsContainer = styled.div`
   position: relative;
@@ -31,12 +36,10 @@ const Main = () => {
   const [loading, setLoading] = useState(true);
   const [fetching, setFetching] = useState(false);
   const [instaData, setInstaData] = useState([]);
-  const [instaPaging, setInstaPaging]: any = useState({});
+  const [instaPaging, setInstaPaging] = useState<IPagingData>({ next: undefined });
 
   const fetchInstaFeeds = async () => {
-    // Initialize
     setLoading(true);
-
     await axios
       .get(`${baseUrl}?fields=id,caption,media_url,media_type&access_token=${token}`)
       .then((response) => {
@@ -46,21 +49,18 @@ const Main = () => {
       .catch((error) => {
         console.log(error);
       });
-
     setLoading(false);
   };
 
   const fetchMoreInstaFeeds = async () => {
     setFetching(true);
-
-    if (instaPaging.next) {
+    if (instaPaging.next !== undefined) {
       await axios.get(instaPaging.next).then((response) => {
         const fetchedData = response.data.data;
         const mergedData = instaData.concat(...fetchedData);
         setInstaData(mergedData);
       });
     }
-
     setFetching(false);
   };
 
@@ -68,7 +68,6 @@ const Main = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
-
     if (scrollTop + clientHeight >= scrollHeight && fetching === false) {
       fetchMoreInstaFeeds();
     }
