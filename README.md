@@ -1,7 +1,8 @@
 # Instagram Feed with Infinite Scroll
 Let's build Infinite Scroll Component using React
 
-Instagram Graph API와 React를 이용해 Instagram 메인 피드를 클론코딩하였습니다. 
+
+Instagram Graph API와 React를 이용해 Instagram 메인 피드를 클론코딩하였습니다.    
 [결과물](https://dianaleee.github.io/react-infinite-scroll-test/)
 
 ## Tech Stack
